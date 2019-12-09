@@ -46,7 +46,6 @@ normal = [{"min": int(q[0][0]), "max": int(q[0][0])}, set(), set(), set(), {"min
 #           dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(),
 #           dict(), set()]
 for i in range(len(q) - 1, -1, -1):
-    print(i)
     if q[i][41] == type or q[i][41] == "normal":
         for j in range(len(q[i])):
             if j != 1 and j != 2 and j != 3 and j != 41:
@@ -84,7 +83,20 @@ for i in range(len(q)):
 
 
 # input_w = q
-input_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.00016448555203911654, 0, 0, 0, 0.0, 0, 0.0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0.0, 0.6666666666666666, 0.6666666666666666, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.00784313725490196, 0.1111111111111111, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+inputt = "0,tcp,http,SF,219,1337,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,6,6,0.00,0.00,0.00,0.00,1.00,0.00,0.00,39,39,1.00,0.00,0.03,0.00,0.00,0.00,0.00,0.00,normal"
+input_data_all = inputt.split(",")
+input_data = input_data_all[:-1]
+# input_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.00016448555203911654, 0, 0, 0, 0.0, 0, 0.0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0.0, 0.6666666666666666, 0.6666666666666666, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.00784313725490196, 0.1111111111111111, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+for j in range(len(input_data)):
+    if j != 1 and j != 2 and j != 3:
+        if normal[j]["max"] != normal[j]["min"]:
+            input_data[j] = (float(input_data[j]) - normal[j]["min"])/(normal[j]["max"] - normal[j]["min"])
+        else:
+            input_data[j] = float(input_data[j])
+    else:
+        input_data[j] = normal[j][input_data[j]]
+
+print(input_data)
 
 
 class Input_L:
