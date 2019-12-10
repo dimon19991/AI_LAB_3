@@ -1,8 +1,3 @@
-# Розпізнавання мережевої кібератаки типу warezmaster на базі PNN.
-# print("[", end="")
-# for i in range(41):
-#     print("{min_v: q["+str(i)+"][0], max_v: q["+str(i)+"][0]}", end=", ")
-# print("]")
 from math import exp
 
 type = "warezmaster"
@@ -38,13 +33,6 @@ normal = [{"min": int(q[0][0]), "max": int(q[0][0])}, set(), set(), set(), {"min
           {"min": float(q[35][0]), "max": float(q[35][0])}, {"min": float(q[36][0]), "max": float(q[36][0])}, {"min": float(q[37][0]), "max": float(q[37][0])},
           {"min": float(q[38][0]), "max": float(q[38][0])}, {"min": float(q[39][0]), "max": float(q[39][0])}, {"min": float(q[40][0]), "max": float(q[40][0])}, set()]
 
-# nornal = [{"min": q[0][0], "max": q[0][0]}, set(), set(), set(), {"min": q[4][0], "max": q[4][0]},
-#           {"min": q[5][0], "max": q[5][0]}, {"min": q[6][0], "max": q[6][0]}, {"min": q[7][0], "max": q[7][0]},
-#           {"min": q[8][0], "max": q[8][0]}, {"min": q[9][0], "max": q[9][0]}, {"min": q[10][0], "max": q[10][0]},
-#           {"min": q[11][0], "max": q[11][0]}, {"min": q[12][0], "max": q[12][0]}, {"min": q[13][0], "max": q[13][0]},
-#           dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(),
-#           dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(),
-#           dict(), set()]
 for i in range(len(q) - 1, -1, -1):
     if q[i][41] == type or q[i][41] == "normal":
         for j in range(len(q[i])):
@@ -82,11 +70,9 @@ for i in range(len(q)):
             q[i][j] = normal[j][q[i][j]]
 
 
-# input_w = q
 inputt = "0,tcp,http,SF,219,1337,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,6,6,0.00,0.00,0.00,0.00,1.00,0.00,0.00,39,39,1.00,0.00,0.03,0.00,0.00,0.00,0.00,0.00,normal"
 input_data_all = inputt.split(",")
 input_data = input_data_all[:-1]
-# input_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.00016448555203911654, 0, 0, 0, 0.0, 0, 0.0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0.0, 0.6666666666666666, 0.6666666666666666, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.00784313725490196, 0.1111111111111111, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 for j in range(len(input_data)):
     if j != 1 and j != 2 and j != 3:
         if normal[j]["max"] != normal[j]["min"]:
@@ -96,7 +82,6 @@ for j in range(len(input_data)):
     else:
         input_data[j] = normal[j][input_data[j]]
 
-print(input_data)
 
 
 class Input_L:
@@ -138,18 +123,10 @@ class Output_L:
 input_list = []
 for i in range(len(input_data)):
     input_list.append(Input_L)
-# input_1 = Input_L()
-# input_2 = Input_L()
-# input_3 = Input_L()
 
 image_list = []
 for i in range(len(q)):
     image_list.append(Image_L(q[i][:-1]))
-
-# image_1 = Image_L(input_w[0])
-# image_2 = Image_L(input_w[1])
-# image_3 = Image_L(input_w[2])
-# image_4 = Image_L(input_w[3])
 
 class_A = Add_L()
 class_B = Add_L()
@@ -162,9 +139,6 @@ y_add = {}
 
 for i in range(len(input_data)):
     y_input.append(input_list[i].activation(input_list[i], input_data[i]))
-# y_input.append(input_1.activation(input_data[0]))
-# y_input.append(input_1.activation(input_data[1]))
-# y_input.append(input_1.activation(input_data[2]))
 
 y_image.append([])
 y_image.append([])
@@ -174,10 +148,7 @@ for i in range(len(q)):
     else:
         y_image[1].append(image_list[i].activation(y_input))
 
-# y_image[0].append(image_1.activation(y_input))
-# y_image[0].append(image_2.activation(y_input))
-# y_image[0].append(image_3.activation(y_input))
-# y_image[1].append(image_4.activation(y_input))
+
 
 y_add.update({"normal": class_A.activation(y_image[0])})
 y_add.update({type: class_B.activation(y_image[1])})
